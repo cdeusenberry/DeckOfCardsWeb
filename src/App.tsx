@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
+
+import {CardDistribution, CardList, FilterToggles} from './features/cards';
 import './App.css'
 
 import {
@@ -84,7 +85,7 @@ function App() {
   return (
     <div className="App">
       <h1>Deck of Cards!</h1>
-      <div className="card">
+      <div>
         <button onClick={onGetDeckPressed}>
           Get a Deck!
         </button>
@@ -92,12 +93,15 @@ function App() {
           Get a Hand!
         </button>
       </div>
-      <div>
-        {hand.map(card => {
-          return (<img src={card.image} className="logo react" alt={card.value} />)
-        })}
-      </div>
-      
+      <CardDistribution cards={cardCollectionData?.cards} />
+      <FilterToggles
+          cards={cardCollectionData?.cards}
+          isSortEnabled={isSortEnabled}
+          setIsSortEnabled={setIsSortEnabled}
+          filterSuits={filterSuits}
+          toggleSuit={suit => setFilterSuits(filterSuits ^ suit)}
+        />
+      <CardList cards={hand} />
     </div>
   )
 }
